@@ -10,10 +10,12 @@ const TaskPage = () => {
   const [editedTaskTitle, setEditedTaskTitle] = useState('');
   const { token } = useAuth(); // Usamos el token de AuthContext
 
+  const API_URL = 'https://task-manager-backend-ojb9.onrender.com';
+
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/tasks', {
+        const response = await axios.get(`${API_URL}/api/tasks`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setTasks(response.data);
@@ -30,7 +32,7 @@ const TaskPage = () => {
   const addTask = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:4000/api/tasks',
+        `${API_URL}/api/tasks`,
         { title: newTask, status: 'pending' },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -43,7 +45,7 @@ const TaskPage = () => {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`http://localhost:4000/api/tasks/${id}`, {
+      await axios.delete(`${API_URL}/api/tasks/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks((prevTasks) => prevTasks.filter((task) => task._id !== id));
@@ -57,7 +59,7 @@ const TaskPage = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/tasks/${id}`,
+        `${API_URL}/api/tasks/${id}`,
         { completed: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -80,7 +82,7 @@ const TaskPage = () => {
   const saveEditedTask = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/tasks/${editingTaskId}`,
+        `${API_URL}/api/tasks/${editingTaskId}`,
         { title: editedTaskTitle },
         { headers: { Authorization: `Bearer ${token}` } }
       );
