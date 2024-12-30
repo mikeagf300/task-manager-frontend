@@ -106,65 +106,65 @@ const TaskPage = () => {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h1 className="text-3xl font-semibold text-center mb-6">Tareas</h1>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6">
         <input
           type="text"
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
           placeholder="Nueva tarea"
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full sm:w-3/4 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 sm:mb-0"
         />
         <button
           onClick={addTask}
-          className="ml-4 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none"
+          className="sm:ml-4 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none"
         >
           Agregar
         </button>
       </div>
       {/* Filtros de tareas */}
-      <div className="mb-6">
+      <div className="mb-6 flex justify-center sm:justify-start gap-4">
         <button
           onClick={() => setFilter('all')}
-          className={`px-4 py-2 mr-4 border rounded-md ${filter === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+          className={`px-4 py-2 border rounded-md ${filter === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
         >
           Todas
         </button>
         <button
           onClick={() => setFilter('completed')}
-          className={`px-4 py-2 mr-4 border rounded-md ${filter === 'completed' ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
+          className={`px-4 py-2 border rounded-md ${filter === 'completed' ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
         >
           Completadas
         </button>
         <button
           onClick={() => setFilter('pending')}
-          className={`px-4 py-2 mr-4 border rounded-md ${filter === 'pending' ? 'bg-yellow-500 text-white' : 'bg-gray-200'}`}
+          className={`px-4 py-2 border rounded-md ${filter === 'pending' ? 'bg-yellow-500 text-white' : 'bg-gray-200'}`}
         >
           Pendientes
         </button>
       </div>
-
+  
       <ul className="space-y-4">
         {filteredTasks.map((task) => (
           <li
             key={task._id}
-            className={`flex justify-between items-center p-4 border border-gray-200 rounded-md shadow-sm ${task.status === 'completed' ? 'bg-green-100' : 'bg-yellow-100'} transition-all duration-300 ease-in-out`}
+            className={`flex flex-col sm:flex-row justify-between items-center p-4 border border-gray-200 rounded-md shadow-sm ${task.status === 'completed' ? 'bg-green-100' : 'bg-yellow-100'} transition-all duration-300 ease-in-out`}
           >
-            <div className="flex items-center space-x-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 w-full sm:w-auto">
               {editingTaskId === task._id ? (
                 <input
                   type="text"
                   value={editedTaskTitle}
                   onChange={(e) => setEditedTaskTitle(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md"
+                  className="w-full sm:w-64 px-4 py-2 border border-gray-300 rounded-md"
                 />
               ) : (
                 <span className={`text-lg ${task.status === 'completed' ? 'line-through text-gray-500' : ''}`}>
                   {task.title}
                 </span>
               )}
-              <span className="text-sm text-gray-500">{new Date(task.createdAt).toLocaleDateString()}</span>
+              <span className="text-sm text-gray-500 mt-2 sm:mt-0">{new Date(task.createdAt).toLocaleDateString()}</span>
             </div>
-            <div className="flex space-x-2">
+            <div className="flex gap-2 flex-wrap sm:flex-nowrap">
               {editingTaskId === task._id ? (
                 <button
                   onClick={saveEditedTask}
@@ -198,6 +198,7 @@ const TaskPage = () => {
       </ul>
     </div>
   );
+  
 };
 
 export default TaskPage;
