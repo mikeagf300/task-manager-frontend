@@ -98,9 +98,11 @@ const TaskPage = () => {
 
   const filteredTasks = tasks.filter((task) => {
     if (filter === 'all') return true;
-    return task.status === filter;
+    if (filter === 'completed') return task.completed === true;
+    if (filter === 'pending') return task.completed === false;
+    return true; // Por seguridad
   });
-
+  
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h1 className="text-3xl font-semibold text-center mb-6">Tareas</h1>
